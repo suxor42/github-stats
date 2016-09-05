@@ -1,5 +1,5 @@
 language: python
-script: exit 0
+script: echo Tests
 deploy:
   provider: heroku
   api_key:
