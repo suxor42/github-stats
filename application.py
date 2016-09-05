@@ -16,7 +16,7 @@ app.cache = Cache(app)
 
 
 @app.route('/')
-def hello_world():
+def main():
     global ANDROID_DEV_GITHUB_USERS
     global OWNER
     global REPOSITORY
