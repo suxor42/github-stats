@@ -1,0 +1,11 @@
+click==6.6
+Flask==0.11.1
+Flask-Cache==0.13.1
+github3.py==0.9.5
+gunicorn==19.6.0
+itsdangerous==0.24
+Jinja2==2.8
+MarkupSafe==0.23
+requests==2.10.0
+uritemplate.py==0.3.0
+Werkzeug==0.11.10

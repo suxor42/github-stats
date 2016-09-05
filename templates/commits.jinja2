@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github commits to master</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<h3>Commits to master for {{ owner|string }}/{{ repository|string }}</h3>
+<table>
+<thead><tr><td>Github Name</td><td>Name</td>{% for date in (commit_clusters.keys()|sort|reverse) %}<td>{{ date.strftime('%d.%m.%Y') }}</td>{% endfor %}</tr></thead>
+{% for user in user_list %}
+    <tr>
+        <td>{{ user.login }}</td>
+        <td>{{ user.name }}</td>
+        {% for (date, committers) in (commit_clusters | dictsort | reverse) %}<td class="{% if user.login in committers %}green{% else %}red{% endif %}"><!-- {{ date.strftime('%d.%m.%Y') }} {{ user.login in committers }} --></td>
+        {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+</body>
+</html>
