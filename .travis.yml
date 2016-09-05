@@ -1,4 +1,5 @@
 language: python
+script: exit 0
 deploy:
   provider: heroku
   api_key:
