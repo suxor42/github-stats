@@ -26,3 +26,8 @@ def search_user(email):
     search_result = list(GH.search_users(query=email, number=1))
     if len(search_result) > 0:
         return search_result.pop()
+
+
+def get_members(organization):
+    org = filter(lambda org: org.login == organization, GH.iter_orgs()).__next__()
+    return list(map(lambda member: member.login, org.iter_members()))
