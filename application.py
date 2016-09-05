@@ -25,10 +25,9 @@ def main():
     global DEV_GITHUB_NAMES
 
     if DEV_GITHUB_USERS is None:
-        DEV_GITHUB_USERS = map_login_user(DEV_GITHUB_NAMES)
+        DEV_GITHUB_USERS = map_login_user(github.get_members(OWNER))
 
-    if REPOSITORIES is None:
-        REPOSITORIES = [REPOSITORY]
+    REPOSITORIES = github.get_repos(OWNER)
 
     assert OWNER is not None
     assert REPOSITORY is not None or REPOSITORIES is not None

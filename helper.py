@@ -1,6 +1,5 @@
 import github
 from datetime import date, datetime, timedelta
-from json import dumps
 
 
 def map_login_user(user_list):

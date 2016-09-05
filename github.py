@@ -8,6 +8,14 @@ TOKEN = os.environ.get('TOKEN')
 GH = login(username=USERNAME, token=TOKEN)
 
 
+def with_organization(function):
+    def return_function(organization):
+        org = filter(lambda org: org.login == organization, GH.iter_orgs()).__next__()
+        return function(org)
+
+    return return_function
+
+
 def get_commits(owner, repository, branch='master', days_since=7):
     repo = GH.repository(owner=owner, repository=repository)
     return repo.iter_commits(sha=branch, since=(datetime.today() - timedelta(days=days_since)))
@@ -28,6 +36,14 @@ def search_user(email):
         return search_result.pop()
 
 
+@with_organization
 def get_members(organization):
-    org = filter(lambda org: org.login == organization, GH.iter_orgs()).__next__()
-    return list(map(lambda member: member.login, org.iter_members()))
+    return list(map(lambda member: member.login, organization.iter_members()))
+
+
+@with_organization
+def get_repos(organization):
+    return list(map(lambda repo: repo.name, organization.iter_repos()))
+
+
+
