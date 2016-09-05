@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
 <body>
-<h3>Commits to master for {{ owner|string }}/{{ repository|string }}</h3>
+<h3>Commits to master for {{ owner|string }} repositories</h3>
 <table>
 <thead><tr><td>Github Name</td><td>Name</td>{% for date in (commit_clusters.keys()|sort|reverse) %}<td>{{ date.strftime('%d.%m.%Y') }}</td>{% endfor %}</tr></thead>
 {% for user in user_list %}
