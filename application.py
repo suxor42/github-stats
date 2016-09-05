@@ -7,6 +7,7 @@ import os
 
 OWNER = os.environ.get('GITHUB_REPO_OWNER')
 REPOSITORY = os.environ.get('GITHUB_REPO')
+REPOSITORIES = os.environ.get('GITHUB_REPOS').split(' ')
 DEV_GITHUB_NAMES = (os.environ.get('GITHUB_USERS')).split(' ')
 DEV_GITHUB_USERS = None
 
@@ -20,18 +21,25 @@ def main():
     global DEV_GITHUB_USERS
     global OWNER
     global REPOSITORY
+    global REPOSITORIES
     global DEV_GITHUB_NAMES
 
     if DEV_GITHUB_USERS is None:
         DEV_GITHUB_USERS = map_login_user(DEV_GITHUB_NAMES)
 
+    if REPOSITORIES is None:
+        REPOSITORIES = [REPOSITORY]
+
     assert OWNER is not None
-    assert REPOSITORY is not None
+    assert REPOSITORY is not None or REPOSITORIES is not None
     assert DEV_GITHUB_USERS is not None
     assert len(DEV_GITHUB_USERS) > 0
 
-    commits = github.get_commits(OWNER, REPOSITORY, 'master', 7)
-    committer_clusters = cluster_on_date(commits, 7)
+    all_commits = []
+    for repo in REPOSITORIES:
+        commits = github.get_commits(OWNER, repo, 'master', 7)
+        all_commits += commits
+    committer_clusters = cluster_on_date(all_commits, 7)
     return render_template(
         'commits.jinja2',
         user_list=DEV_GITHUB_USERS,
