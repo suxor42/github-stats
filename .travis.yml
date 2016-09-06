@@ -12,7 +12,7 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push "suxor/github-stats";
-    docker tag suxor/github-stats "suxor/github-stats:$TRAVIS_BRANCH"
+    docker tag suxor/github-stats "suxor/github-stats:$TRAVIS_BRANCH";
     docker push "suxor/github-stats:$TRAVIS_BRANCH";
     fi
 
