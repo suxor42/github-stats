@@ -35,7 +35,7 @@ def main():
     assert len(DEV_GITHUB_USERS) > 0
 
     all_commits = []
-    for repo in REPOSITORIES[1:20]:
+    for repo in sorted(REPOSITORIES)[1:20]:
         commits = github.get_commits(OWNER, repo, 'master', 7)
         all_commits += commits
     committer_clusters = cluster_on_date(all_commits, 7)
