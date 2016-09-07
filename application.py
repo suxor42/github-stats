@@ -27,15 +27,14 @@ def main():
     if DEV_GITHUB_USERS is None:
         DEV_GITHUB_USERS = map_login_user(github.get_members(OWNER))
 
-    REPOSITORIES = github.get_repos(OWNER)
+    repositories = list(filter(lambda repository: repository in REPOSITORIES, github.get_repos(OWNER)))
 
     assert OWNER is not None
-    assert REPOSITORY is not None or REPOSITORIES is not None
     assert DEV_GITHUB_USERS is not None
     assert len(DEV_GITHUB_USERS) > 0
 
     all_commits = []
-    for repo in sorted(REPOSITORIES)[1:20]:
+    for repo in sorted(repositories):
         commits = github.get_commits(OWNER, repo, 'master', 7)
         all_commits += commits
     committer_clusters = cluster_on_date(all_commits, 7)
