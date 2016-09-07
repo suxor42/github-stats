@@ -46,4 +46,8 @@ def get_repos(organization):
     return list(map(lambda repo: repo.name, organization.iter_repos()))
 
 
+def get_issues(owner, repo, since=7):
+    return GH.iter_repo_issues(owner=owner, state='all', repository=repo, since=datetime.now()-timedelta(days=since))
+
+
 
