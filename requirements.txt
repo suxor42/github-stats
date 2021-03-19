@@ -5,7 +5,7 @@ Flask-Cache==0.13.1
 github3.py==0.9.5
 gunicorn==19.6.0
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==2.11.3
 MarkupSafe==0.23
 requests==2.11.1
 urllib3==1.16
